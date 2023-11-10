@@ -1,0 +1,9 @@
+.answer {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    justify-content: flex-start;
+}
+.sendButton {
+    width: max-content;
+}

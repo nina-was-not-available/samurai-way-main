@@ -1,0 +1,21 @@
+.item {
+    background-color: rgba(248, 253, 255, 0.12);
+    margin-bottom: 20px;
+    border: 2px solid white;
+    border-radius: 15px;
+    padding: 20px;
+    width: max-content;
+
+}
+.item img {
+    max-width: 30px;
+    width: 100%;
+    border-radius: 50%;
+}
+.item span {
+    margin: 10px;
+}
+.item button {
+    width: max-content;
+    font-size: 10px;
+}

@@ -1,0 +1,10 @@
+.menu {
+    padding: 20px;
+}
+
+.creatingpost {
+    margin-bottom: 20px;
+}
+.creatingpost textarea {
+    resize: vertical;
+}

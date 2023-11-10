@@ -1,0 +1,20 @@
+
+.nav {
+    grid-area: n;
+    background-color: rgba(255, 34, 213, 0.39);
+    padding: 20px;
+    min-width: 250px;
+    max-width: 300px;
+}
+.item {
+    color: white;
+    line-height: 30px;
+}
+.item a.active {
+    text-decoration: white underline;
+}
+
+.item a {
+    color: white;
+    text-decoration: none;
+}
