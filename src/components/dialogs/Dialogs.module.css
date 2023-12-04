@@ -4,19 +4,31 @@
 }
 
 .dialogItems {
- padding: 20px;
+    padding: 20px;
     line-height: 30px;
 
 }
 
 
 .dialog a {
-   color: white;
+   color: #383737;
+    position: relative;
     text-decoration: none;
 }
 
-.dialog a.active {
-    text-decoration: underline;
+/*.dialog a.active {*/
+/*    text-decoration: underline;*/
+/*}*/
+
+.dialog a.active:before {
+    content: '';
+    height: 2px;
+    width: 100%;
+    background-color: #d9314c;
+    position: absolute;
+    display: inline-block;
+    top: 100%;
+    transition: .2s;
 }
 
 .messages {

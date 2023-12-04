@@ -1,7 +1,6 @@
 .item {
-    background-color: rgba(248, 253, 255, 0.12);
+    background-color: rgba(56, 55, 55, 0.29);
     margin-bottom: 20px;
-    border: 2px solid white;
     border-radius: 15px;
     padding: 20px;
     width: max-content;
@@ -15,7 +14,36 @@
 .item span {
     margin: 10px;
 }
-.item button {
+.button {
     width: max-content;
     font-size: 10px;
+}
+.button {
+    width: max-content;
+    background-color: bisque;
+    color: #383737;
+    font-weight: bold;
+    border: 2px solid #383737;
+    border-radius: 10px;
+}
+
+.like {
+    width: 15px;
+    height: 15px;
+    object-fit: contain;
+}
+
+.dislike {
+    width: 15px;
+    height: 15px;
+    object-fit: contain;
+    transform: rotateZ(180deg);
+}
+
+.likes {
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin: 10px;
 }

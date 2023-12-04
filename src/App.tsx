@@ -1,46 +1,38 @@
 import React from 'react';
 import './App.css';
 import Header from "./components/header/Header";
-import Navbar from "./components/navbar/Navbar";
-import Profile from "./components/profle/Profile";
-import Dialogs from "./components/dialogs/Dialogs";
 import {Route} from "react-router-dom";
 import News from "./components/news/News";
 import Music from "./components/music/Music";
 import Settings from "./components/settings/Settings";
-import Friends from "./components/friends/Friends";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
-import {store} from "./redux/reduxStore";
 import NavbarContainer from "./components/navbar/NavbarContainer";
 import FriendsContainer from "./components/friends/FriendsContainer";
+import UsersContainer from "./components/users/UsersContainer";
+import ProfileContainer from "./components/profle/ProfileContainer";
+import HeaderContainer from "./components/header/HeaderContainer";
+import Login from "./components/Login/Login";
 
-//props: AppPropsType
 
 
 const App = () => {
     return (
-            <div className="app-wrapper">
-                <Header/>
+        <div className="app-wrapper">
+            <HeaderContainer/>
 
-                  {/*<Navbar sidebar={store.getState().sidebar}/>*/}
-                  <NavbarContainer/>
+            <NavbarContainer/>
+            <div className={'app-wrapper-content'}>
+                <Route render={() => <ProfileContainer/>} path={'/profile/:userId?'}/>
+                <Route render={() => <DialogsContainer/>} path={'/dialogs'}/>
+                <Route render={() => <News/>} path={'/news'}/>
+                <Route render={() => <Music/>} path={'/music'}/>
+                <Route render={() => <Settings/>} path={'/settings'}/>
+                <Route render={() => <FriendsContainer/>} path={'/friends'}/>
+                <Route render={() => <UsersContainer/>} path={'/users'}/>
+                <Route render={() => <Login/>} path={'/login'}/>
 
-                {/*<Navbar sidebar={props.state.sidebar} />*/}
-                <div className={'app-wrapper-content'}>
-                    {/*<Route render={() => <Profile profile={props.state.profilePage}  dispatch={props.dispatch}/>} path={'/profile'}/>*/}
-                    <Route render={() => <Profile />} path={'/profile'}/>
-                    <Route render={() => <DialogsContainer />} path={'/dialogs'}/>
-                    {/*<Route render={() => <DialogsContainer dialogs={props.state.dialogs} dispatch={props.dispatch} />} path={'/dialogs'}/>*/}
-                    <Route render={() => <News/>} path={'/news'}/>
-                    <Route render={() => <Music/>} path={'/music'}/>
-                    <Route render={() => <Settings/>} path={'/settings'}/>
-                    {/*<Route render={() => <Friends friends={props.state.friends}/>} path={'/friends'}/>*/}
-
-                  {/*<Route render={() => <Friends friends={store.getState().friends}/>} path={'/friends'}/>*/}
-                  <Route render={() => <FriendsContainer/>} path={'/friends'}/>
-
-                </div>
             </div>
+        </div>
     );
 }
 

@@ -1,40 +1,22 @@
-import React from 'react';
-import classes from "./Navbar.module.css";
-import {NavLink} from "react-router-dom";
-import Friends from "../friends/Friends";
-import {FriendsPropsType, NavbarPropsType, SideBarPropsType} from "../../redux/types";
 import {connect} from "react-redux";
 import Navbar from "./Navbar";
 import {RootState} from "../../redux/reduxStore";
+import {InitialStateNavbarPT} from "../../redux/sidebarReducer";
+import {updateProfile} from "../../redux/profileReducer";
 
-
-
-
-// const NavbarContainer = (props: NavbarPropsType) => {
-//     const {navbarData} = props.sidebar
-//     let navbar = navbarData.map((nav, index) => {
-//         return (
-//             <div className={nav.class} key={index}>
-//                 <NavLink to={nav.link} activeClassName={classes.active}>{nav.text}</NavLink>
-//             </div>
-//         )
-//     })
-//     return (
-//         <nav className={classes.nav}>
-//             {navbar}
-//
-//         </nav>
-//     );
-// };
-
-const mapState = (state: RootState) => {
+export type MapStateNavbarPT = {
+    sidebar: InitialStateNavbarPT
+}
+const mapState = (state: RootState): MapStateNavbarPT => {
     return {
         sidebar: state.sidebar
     }
 }
-const mapDispatch = () => {
+export type NavbarPT = MapDispatchNavbarPT & MapStateNavbarPT
+type MapDispatchNavbarPT = {
+    updateProfile: () => void
 }
 
-const NavbarContainer = connect(mapState, mapDispatch)(Navbar)
 
-export default NavbarContainer;
+export default connect(mapState, {updateProfile})(Navbar)
+

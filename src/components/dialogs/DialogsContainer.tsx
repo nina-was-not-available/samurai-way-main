@@ -1,55 +1,34 @@
-import React, {ChangeEvent, FC} from 'react';
-import {sendMessageAC, updateNewMessageTextAC} from "../../redux/dialogsReducer";
+import {
+    InitialStateDialogsPT, sendMessage,
+    updateNewMessageText,
+} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {ActionType, StatePropsType} from "../../redux/types";
 import {RootState} from "../../redux/reduxStore";
+import {WithAuthRedirect} from "../hoc/withAuthRedirect";
+import {compose} from "redux";
 
-//props: DialogsContainerProps
-// const DialogsContainer = () => {
-//
-//     // const onSendClick = () => {
-//     //     props.dispatch(sendMessageAC())
-//     // }
-//     // const onNewMessageChange = (text: string) => {
-//     //     props.dispatch(updateNewMessageTextAC(text))
-//     // }
-//
-//     return (
-//         <StoreContext.Consumer>
-//             {store => {
-//                 const onSendClick = () => {
-//                     store.dispatch(sendMessageAC())
-//                 }
-//                 const onNewMessageChange = (text: string) => {
-//                     store.dispatch(updateNewMessageTextAC(text))
-//                 }
-//                 return (
-//                     <Dialogs dialogs={store.getState().dialogs} sendMessage={onSendClick} updateNewMessageText={onNewMessageChange}/>
-//                 )
-//             }}
-//             {/*<Dialogs dialogs={props.dialogs} sendMessage={onSendClick} updateNewMessageText={onNewMessageChange}/>*/}
-//         </StoreContext.Consumer>
-//     );
-// };
 
-let mapState = (state: RootState) => {
-    return {
-        dialogs: state.dialogs
-    }
+type MapStateDialogsPT = {
+    dialogs: InitialStateDialogsPT
+    //isAuth: boolean
 }
-let mapDispatch = (dispatch: (action: ActionType) => void) => {
+type MapDispatchDialogsPT = {
+    sendMessage: () => void,
+    updateNewMessageText: (text: string) => void
+}
+let mapState = (state: RootState): MapStateDialogsPT => {
     return {
-        sendMessage: () => {
-            dispatch(sendMessageAC())
-        },
-        updateNewMessageText: (text: string) => {
-            dispatch(updateNewMessageTextAC(text))
-        }
+        dialogs: state.dialogs,
+        //isAuth: state.auth.isAuth
     }
 }
 
-const DialogsContainer = connect(mapState, mapDispatch)(Dialogs);
+export type DialogsPT = MapStateDialogsPT & MapDispatchDialogsPT
+//
+// let WrappedDialogs = WithAuthRedirect(Dialogs)
+// export default connect(mapState, {sendMessage, updateNewMessageText})(WrappedDialogs);
 
 
-export default DialogsContainer;
+
+export default compose<React.ComponentType>(WithAuthRedirect, connect(mapState, {sendMessage, updateNewMessageText})) (Dialogs)

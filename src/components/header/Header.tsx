@@ -1,11 +1,24 @@
 import React from 'react';
 import classes from './Header.module.css'
+import fav from './../../images/favicon1.svg'
+import {NavLink} from "react-router-dom";
+import {HeaderPT} from "./HeaderContainer";
 
 
-const Header = () => {
+const Header = (props: HeaderPT) => {
+    console.log(props.login)
     return (
         <header className={classes.header}>
-            <img src={'https://static.vecteezy.com/system/resources/previews/008/214/517/non_2x/abstract-geometric-logo-or-infinity-line-logo-for-your-company-free-vector.jpg'}/>
+            <div className={classes.headerContent}>
+                <img src={fav}/>
+                <h3>Social samurai</h3>
+                {props.isAuth?
+                    <span className={classes.name}>{props.login}</span> :
+                <div className={classes.login}>
+                    <NavLink to={'/login'}>Login</NavLink>
+                </div>}
+            </div>
+
         </header>
     );
 };

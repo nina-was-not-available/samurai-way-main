@@ -1,6 +1,14 @@
 import {connect} from "react-redux";
 import {RootState} from "../../redux/reduxStore";
 import Friends from "./Friends";
+import {InitialStateFriendsPT, ResultType, setFriends} from "../../redux/friendsReducer";
+import React, {ReactComponentElement} from "react";
+import axios from "axios";
+import friend from "./friend/Friend";
+import friends from "./Friends";
+import {Redirect} from "react-router-dom";
+import {WithAuthRedirect} from "../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 //props: FriendType
@@ -15,13 +23,35 @@ import Friends from "./Friends";
 //     );
 // };
 
-const mapState = (state: RootState) => {
-    return {
-        friends: state.friends
+
+class FriendsContainer extends React.Component<FriendsPT> {
+
+    render() {
+        //if (!this.props.isAuth) return <Redirect to={'/login'}/>
+        return (
+            <Friends friends={this.props.friends}/>
+        );
     }
 }
-const mapDispatch = () => {
 
+export type MapStateFriendsPT = {
+     friends: InitialStateFriendsPT
+   // isAuth: boolean
+    // friends: ResultType[]
 }
-const FriendsContainer = connect(mapState, mapDispatch)(Friends)
-export default FriendsContainer;
+type MapDispatchFriendsPT = {
+    setFriends: (friends: ResultType) => void
+}
+export type FriendsPT = MapStateFriendsPT & MapDispatchFriendsPT
+const mapState = (state: RootState): MapStateFriendsPT => {
+    return {
+        friends: state.friends,
+       // isAuth: state.auth.isAuth
+    }
+}
+
+export default compose<React.ComponentType>(WithAuthRedirect,
+    connect(mapState, {setFriends})
+)(FriendsContainer)
+// let WrappedFriends = WithAuthRedirect(FriendsContainer)
+// export default connect(mapState, {setFriends})(WrappedFriends);

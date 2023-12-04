@@ -1,15 +1,21 @@
 import React from 'react';
 import classes from './Friend.module.css'
-import {FriendPropsType} from "../../../redux/types";
+import avatar from './../../../images/pngwing.com (1).png'
 
-const Friend = (props: FriendPropsType) => {
+type FrirndType = {
+    img: null | string
+    name: null | string
+    status: null | string
+}
+
+const Friend = (props: FrirndType) => {
     return (
         <div>
             <div className={classes.container}>
-                <img src={props.img} className={classes.ava}/>
+                <img src={props.img? props.img : avatar} className={classes.ava}/>
                 {/*<span className={classes.online}></span>*/}
                 <span className={classes.name}>{props.name}</span>
-                <span className={classes.name}>{props.lastname}</span>
+                <span className={classes.name}>{props.status}</span>
             </div>
         </div>
     );

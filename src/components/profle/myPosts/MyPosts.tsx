@@ -1,18 +1,29 @@
 import React, {ChangeEvent, useState} from 'react';
 import classes from "./MyPosts.module.css";
-import {PostsPropsType} from "../../../redux/types";
 import Post from "./post/Post";
+import {MyPostPT} from "./MyPostsContainer";
+import Preloader from "../../common/Preloader";
+import ava from './../../../images/инфочат.jpg'
+import avatar from './../../../images/pngwing.com (1).png'
+import Button from "../../common/Button";
+import Textarea from "../../common/Textarea";
 
 
 //props: PostsPropsType
-export const MyPosts = (props: PostsPropsType) => {
+export const MyPosts = (props: MyPostPT) => {
+    if (!props.profile.photos) {
+        return <Preloader/>
+    }
 
-
-    let postElement = props.postsData.map(post => <Post key={post.id} id={post.id} text={post.text} button={post.button}/>);
+    let postElement = props.postsData.map(post => <Post key={post.id} id={post.id} text={post.text}
+                                                        button={post.button} img={props.profile.photos.small? props.profile.photos.small : avatar}/>);
 
 
     const addPost = () => {
-        props.addPost()
+        if (props.newPostText.trim() !== '') {
+            props.addPost()
+        }
+
         props.updateNewPostText('')
 
     }
@@ -24,11 +35,15 @@ export const MyPosts = (props: PostsPropsType) => {
 
     return (
         <div className={classes.menu}>
-            My post
+            <div className={classes.header}>
+                My post
+            </div>
             <div className={classes.creatingpost}>
-                <textarea value={props.newPostText} onChange={onChangeHandler}/>
+                <Textarea onChange={onChangeHandler} value={props.newPostText} placehalder={'Write your post'}/>
+                {/*<textarea value={props.newPostText} onChange={onChangeHandler}/>*/}
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    {/*<button onClick={addPost}>Add post</button>*/}
+                    <Button onClick={addPost} name={'Add post'}/>
                 </div>
             </div>
             {postElement}

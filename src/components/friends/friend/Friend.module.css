@@ -1,8 +1,7 @@
 .ava {
-    width: 70px;
-    height: 70px;
+    width: 150px;
+    height: 150px;
     object-fit: contain;
-    background-color: white;
     border-radius: 50%;
     margin-bottom: 10px;
     position: relative;
@@ -20,7 +19,7 @@
     position: relative;
 }
 .name {
-    font-size: 14px;
+    font-size: 20px;
 }
 .online {
     height: 10px;

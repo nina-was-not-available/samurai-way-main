@@ -1,6 +1,7 @@
 import React from "react";
 import classes from './Message.module.css'
-import {MessageData} from "../../../redux/types";
+import {MessageData} from "../../../redux/dialogsReducer";
+
 
 
 

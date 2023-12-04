@@ -1,5 +1,10 @@
 import classes from "../components/navbar/Navbar.module.css";
-import {SideBarPropsType} from "./types";
+export type InitialStateNavbarPT = typeof initialState
+export type NavbarType = {
+    link: string
+    text: string
+    class: string
+}
 
 let initialState = {
     navbarData: [
@@ -9,9 +14,10 @@ let initialState = {
         {link: '/music', text: 'Music', class: `${classes.item} ${classes.active}`},
         {link: '/settings', text: 'Settings', class: classes.item},
         {link: '/friends', text: 'Friends', class: classes.item},
-    ]
+        {link: '/users', text: 'Users', class: classes.item},
+    ] as NavbarType[]
 }
 
-export const sidebarReducer = (state: SideBarPropsType = initialState, action: any) => {
+export const sidebarReducer = (state: InitialStateNavbarPT = initialState, action: any) : InitialStateNavbarPT=> {
     return state
 }

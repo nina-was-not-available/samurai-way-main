@@ -1,20 +1,31 @@
 
 .nav {
     grid-area: n;
-    background-color: rgba(255, 34, 213, 0.39);
+    background-color: #383737;
     padding: 20px;
     min-width: 250px;
     max-width: 300px;
 }
 .item {
-    color: white;
+    color: bisque;
     line-height: 30px;
 }
-.item a.active {
-    text-decoration: white underline;
+.item a.active:before {
+    content: '';
+    height: 2px;
+    width: 100%;
+    background-color: #d9314c;
+    position: absolute;
+    display: inline-block;
+    top: 100%;
+    transition: .2s;
 }
 
+
 .item a {
-    color: white;
+    color: bisque;
     text-decoration: none;
+    position: relative;
+    z-index: 1;
 }
+

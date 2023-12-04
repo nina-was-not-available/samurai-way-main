@@ -21,7 +21,7 @@ import {Provider} from "react-redux";
         </BrowserRouter>,
         document.getElementById('root')
     );
-//}
+//xx}
 // Rerender(store.getState())
 // store.subscribe(() => {
 //     let state = store.getState()
