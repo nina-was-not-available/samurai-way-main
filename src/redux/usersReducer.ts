@@ -83,7 +83,7 @@ export type SetTotalUsersAT = ReturnType<typeof setTotalUsers>
 export const setTotalUsers = (count: number) => ({type: 'SET-TOTAL-COUNT', payload: {count}} as const)
 
 export type SetIsLoadingAT = ReturnType<typeof setIsLoading>
-export const setIsLoading = (isLoding: boolean) => ({type: 'SET-IS-LOADING', payload: {isLoding}} as const)
+export const setIsLoading = (isLoading: boolean) => ({type: 'SET-IS-LOADING', payload: {isLoding: isLoading}} as const)
 
 
 type IsFollowingButtonDisabledAT = ReturnType<typeof isFollowingButtonDisabled>

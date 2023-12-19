@@ -1,16 +1,8 @@
 import {connect} from "react-redux";
-import {AppDispatch, AppThunk, RootState} from "../../redux/reduxStore";
-import {
-    deleteFromFriends, getUsersThunk, isFollowingButtonDisabled,
-    makeFriends, onFollowThunk, onUnfollowThunk, ResultType, setCurrentPage, setIsLoading, setTotalUsers,
-    setUsers,
-} from "../../redux/usersReducer";
+import {RootState} from "../../redux/reduxStore";
+import {getUsersThunk, onFollowThunk, onUnfollowThunk, ResultType, setCurrentPage,} from "../../redux/usersReducer";
 import React from "react";
 import {Users} from "./Users";
-import {usersAPI} from "../../api/usersApi";
-import {deleteFriend, setFriends} from "../../redux/friendsReducer";
-import {Redirect} from "react-router-dom";
-import {WithAuthRedirect} from "../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {
     getFollowingButtonDisabled,
