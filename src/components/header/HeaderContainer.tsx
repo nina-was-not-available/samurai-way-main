@@ -1,28 +1,15 @@
 import React from 'react';
 import Header from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
-import {getAuthInfoThunk, InitialAuthStateType, setUserData} from "../../redux/authReducer";
+import {getAuthInfoThunk, InitialAuthStateType, logoutThunk, setUserData} from "../../redux/authReducer";
 import {RootState} from "../../redux/reduxStore";
-import {authAPI} from "../../api/authAPI";
-import {debuglog} from "util";
-import {ResultType} from "../../redux/usersReducer";
+import {GetAuthType} from "../../api/authAPI";
+
 
 
 export type HeaderPT = mapDispatchToProps & mapStateToProps_T
 
 class HeaderContainer extends React.Component<HeaderPT> {
-    componentDidMount() {
-        this.props.getAuthInfoThunk()
-        // authAPI.getAuthInfo()
-        //     .then(response => {
-        //         if (response.resultCode === 0) {
-        //             this.props.setUserData(response.data)
-        //         }
-        //
-        //     })
-
-    }
 
     render() {
         return (
@@ -43,8 +30,8 @@ type mapStateToProps_T = {
 }
 
 type mapDispatchToProps = {
-    setUserData: (data: InitialAuthStateType) => void
-    getAuthInfoThunk: () => Promise<void>;
+    setUserData: (data: GetAuthType, isAuth: boolean) => void
+    logoutThunk: () => void
 }
 
-export default connect(mapStateToDrops, {setUserData, getAuthInfoThunk})(HeaderContainer);
+export default connect(mapStateToDrops, {setUserData, logoutThunk})(HeaderContainer);

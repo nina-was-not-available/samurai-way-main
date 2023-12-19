@@ -1,9 +1,53 @@
-.answer {
+
+.dialog {
+    position: relative;
+    margin-bottom: 20px;
     display: flex;
-    flex-direction: column;
-    width: max-content;
-    justify-content: flex-start;
+    justify-content: flex-end;
 }
-.sendButton {
-    width: max-content;
+
+.messageRight {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+    background-color: #383737;
+    color: antiquewhite;
+    margin-left: auto;
+}
+
+.messageLeft {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+    background-color: #d9314c;
+    color: antiquewhite;
+}
+
+.messageRight::before {
+
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -19px;
+    transform: translateY(-50%);
+    border: 10px solid transparent;
+    border-left-color: #383737;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0px 50%);
+}
+
+.messageLeft ::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -19px;
+    transform: translateY(-50%);
+    border: 10px solid transparent;
+    border-right-color: #d9314c;
+    /*clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 100% 50%);*/
 }

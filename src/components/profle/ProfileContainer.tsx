@@ -4,18 +4,18 @@ import {connect} from "react-redux";
 import Profile from "./Profile";
 import axios from "axios";
 import {
-    getProfileThunk,
+    getProfileThunk, getStatusThunk,
     initialProfileInfo,
     initialState,
     ProfileResponceType,
     setProfileInfo,
-    updateProfile
+    updateProfile, updateStatusThunk
 } from "../../redux/profileReducer";
 import {RootState, store} from "../../redux/reduxStore";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
-import {getProfile} from "../../api/profileAPI";
 import {WithAuthRedirect} from "../hoc/withAuthRedirect";
 import {compose} from "redux";
+import Preloader from "../common/Preloader";
 
 type PathParamsType = {
     userId: string
@@ -28,22 +28,23 @@ type ProfilePropsType = RouteComponentProps<PathParamsType> & ProfilePType
 class ProfileContainer extends React.Component<ProfilePropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
+        let myId = '30215'
         if (!userId) {
-            userId = '1'
+            if (this.props.myId) {
+                userId = this.props.myId.toString()
+            }
+            else {this.props.history.push('/login')}
         }
         this.props.getProfileThunk(userId)
-        // getProfile(userId)
-        //     .then(response => this.props.setProfileInfo(response))
-        //     .catch(() => {
-        //         return this.props.setProfileInfo(initialProfileInfo)
-        //     })
+        this.props.getStatusThunk(userId)
     }
 
     render() {
-
-        //if (!this.props.isAuth) return <Redirect to={'/login'}/>
         return (
-            <Profile profile={this.props.profile} setProfileInfo={this.props.setProfileInfo}/>
+            <Profile
+                profile={this.props.profile}
+                     setProfileInfo={this.props.setProfileInfo}/>
+        //status={this.props.status} updateStatusThunk={this.props.updateStatusThunk}/>
         );
     };
 }
@@ -51,20 +52,26 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
 type mapDispatchToProps_T = {
     setProfileInfo: (profile: ProfileResponceType) => void
     getProfileThunk: (userId: string) => Promise<void>;
+    getStatusThunk: (userId: string) => Promise<void>
+    updateStatusThunk: (status: string) => Promise<void>
 
 }
 type mapStateToProps_T = {
-    profile: ProfileResponceType
-    //isAuth: boolean
+     profile: ProfileResponceType,
+    // status: string
+    isAuth: boolean
+    myId: number | null
 }
 const mapStateToProps = (state: RootState): mapStateToProps_T => ({
     profile: state.profilePage.profileInfo,
-    //isAuth: state.auth.isAuth
+    // status: state.profilePage.status
+    isAuth: state.auth.isAuth,
+    myId: state.auth.id
 })
 
 export default compose<React.ComponentType>(withRouter,
-    WithAuthRedirect,
-    connect(mapStateToProps, {setProfileInfo, getProfileThunk})
+   // WithAuthRedirect,
+    connect(mapStateToProps, {setProfileInfo, getProfileThunk, getStatusThunk, updateStatusThunk})
 )(ProfileContainer)
 //
 // let ProfileContainerWithRouter = withRouter(ProfileContainer)

@@ -11,24 +11,18 @@ import {compose} from "redux";
 
 type MapStateDialogsPT = {
     dialogs: InitialStateDialogsPT
-    //isAuth: boolean
+
 }
 type MapDispatchDialogsPT = {
-    sendMessage: () => void,
-    updateNewMessageText: (text: string) => void
+    sendMessage: (message: string) => void,
 }
 let mapState = (state: RootState): MapStateDialogsPT => {
     return {
         dialogs: state.dialogs,
-        //isAuth: state.auth.isAuth
+
     }
 }
 
 export type DialogsPT = MapStateDialogsPT & MapDispatchDialogsPT
-//
-// let WrappedDialogs = WithAuthRedirect(Dialogs)
-// export default connect(mapState, {sendMessage, updateNewMessageText})(WrappedDialogs);
 
-
-
-export default compose<React.ComponentType>(WithAuthRedirect, connect(mapState, {sendMessage, updateNewMessageText})) (Dialogs)
+export default compose<React.ComponentType>(WithAuthRedirect, connect(mapState, {sendMessage})) (Dialogs)

@@ -13,7 +13,7 @@ type FriendPT = {
 
 const Friends = (props: FriendPT) => {
     if (props.friends.friendsData.length === 0) {
-        return <div></div>
+        return <div className={classes.withoutFriends}>You don't have any friend :(</div>
     }
     const {friendsData} = props.friends
     const friendsList = friendsData.map((f, index) => <Friend key={index} img={f.photos.large} name={f.name} status={f.status}/>)

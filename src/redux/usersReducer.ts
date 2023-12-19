@@ -96,6 +96,7 @@ export const isFollowingButtonDisabled = (userID: number, value: boolean) => ({
 
 export const getUsersThunk = (page: number, size: number) => async (dispatch: AppDispatch) => {
     dispatch(setIsLoading(true))
+    dispatch(setCurrentPage(page))
     try {
         let res = await usersAPI.getUsers(page, size)
         dispatch(setUsers(res.items))

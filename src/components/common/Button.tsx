@@ -3,8 +3,8 @@ import styles from './common.module.css'
 import {ButtonProps} from "antd";
 
 type ButtonPT = {
-    onClick: () => void
-    name: string
+    onClick?: () => void
+    name?: string
     className?: string
     style?: {}
     disabled?: boolean
@@ -12,10 +12,12 @@ type ButtonPT = {
 
 const Button = (props: ButtonPT) => {
     const onClickHandler = () => {
-        props.onClick()
+        props.onClick?.()
     }
     return (
-        <button onClick={onClickHandler} className={
+        <button
+            onClick={onClickHandler}
+                className={
             props.className? props.className : styles.button } style={props.style} disabled={props.disabled}>
             {props.name}
         </button>

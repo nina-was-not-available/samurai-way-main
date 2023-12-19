@@ -17,9 +17,10 @@ export const updateNewMessageText = (newMessageText: string) => {
     } as const
 }
 
-export const sendMessage = () => {
+export const sendMessage = (message: string) => {
     return {
-        type: 'SEND-MESSAGE'
+        type: 'SEND-MESSAGE',
+        payload: {message}
     } as const
 }
 
@@ -38,28 +39,17 @@ let initialState = {
         {id: 2, text: 'How are you?'},
         {id: 3, text: "Let's go out today!"},
     ] as MessageData[],
-    newMessageText: ''
 }
 
 export type InitialStateDialogsPT = typeof initialState
 export const dialogsReducer = (state: InitialStateDialogsPT = initialState, action: ActionType) : InitialStateDialogsPT => {
     switch (action.type) {
-        case 'UPDATE-NEW-MESSAGE-TEXT':
-        return {...state, newMessageText: action.newMessageText}
-
         case 'SEND-MESSAGE':
-            return {...state, messageData: [...state.messageData, {id: 6, text: state.newMessageText}], newMessageText: ''}
+            return {...state, messageData: [...state.messageData, {id: 6, text: action.payload.message}]}
     }
     return state
 }
 
-export type updateNewMessageTextAT = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT',
-    newMessageText: string
-}
+export  type sendMessageAT = ReturnType<typeof sendMessage>
 
-export  type sendMessageAT = {
-    type: 'SEND-MESSAGE'
-}
-
-type ActionType =  updateNewMessageTextAT | sendMessageAT
+type ActionType = sendMessageAT

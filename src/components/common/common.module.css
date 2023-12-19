@@ -23,6 +23,17 @@
     outline: 1px solid #383737;
     border-radius: 5px;
 }
+.inputLogin {
+    background-color: #383737;
+    color: bisque;
+    display: inline-block;
+    min-width: 250px;
+    padding: 0 10px;
+    height: 40px;
+    outline: none;
+    border: none;
+    border-radius: 25px;
+}
 
 
 .textarea {
@@ -30,5 +41,17 @@
     padding: 10px;
     border-radius: 10px;
     border: 2px solid #383737;
-
+    display: inline-block;
+    height: 20px;
+    /*width: 500px;*/
+    resize: vertical;
+}
+.textarea.error,
+.inputLogin.error,
+.input.error {
+    border: 2px solid #d9314c;
+}
+.error {
+    color: #d9314c;
+    align-self: start;
 }

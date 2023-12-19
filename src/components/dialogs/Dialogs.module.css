@@ -6,9 +6,39 @@
 .dialogItems {
     padding: 20px;
     line-height: 30px;
-
+    background-color: rgba(56, 55, 55, 0.29)
+}
+.form {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+    margin-top: 20px;
 }
 
+/*.textarea {*/
+/*    background-color: rgba(56, 55, 55, 0.29);*/
+/*    padding: 10px;*/
+/*    border-radius: 10px;*/
+/*    border: 2px solid #383737;*/
+/*    display: inline-block;*/
+/*    height: 20px;*/
+/*    width: 500px;*/
+/*    resize: vertical;*/
+/*}*/
+.button {
+    min-height: 30px;
+    min-width: 50px;
+    width: max-content;
+    padding: 5px 15px;
+    background-color: bisque;
+    color: #383737;
+    font-weight: bold;
+    border: 2px solid #383737;
+    border-radius: 10px;
+    text-align: center;
+}
 
 .dialog a {
    color: #383737;
@@ -16,9 +46,6 @@
     text-decoration: none;
 }
 
-/*.dialog a.active {*/
-/*    text-decoration: underline;*/
-/*}*/
 
 .dialog a.active:before {
     content: '';
@@ -34,6 +61,18 @@
 .messages {
     padding: 20px;
     line-height: 30px;
+    /*display: flex;*/
+    /*justify-content: flex-end;*/
+    /*text-align: right;*/
+    /*height: 100%;*/
 }
 .message {
+    /*border: 2px solid #383737;*/
+    /*border-radius: 10px;*/
+    /*display: flex;*/
+    /*margin: 20px;*/
+    /*padding: 7px;*/
+    /*!*justify-content: flex-end;*!*/
+    /*!*align-items: flex-end;*!*/
+    /*width: max-content;*/
 }

@@ -12,6 +12,14 @@ import {deleteFriend, setFriends} from "../../redux/friendsReducer";
 import {Redirect} from "react-router-dom";
 import {WithAuthRedirect} from "../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getFollowingButtonDisabled,
+    getIsLoading,
+    getPage,
+    getSize,
+    getTotalCount,
+    getUsers
+} from "../../redux/selectors/usersSelectors";
 
 
 export type UsersPropsType = MapStateUsersPT & MapDispatchUsersPT
@@ -22,36 +30,35 @@ type MapStateUsersPT = {
     totalCount: number
     isLoading: boolean
     followingButtonDisabled: number[]
-//isAuth: boolean
 }
 type MapDispatchUsersPT = {
-    // makeFriends: (userID: number) => void,
-    // deleteFromFriends: (userID: number) => void,
-    // setUsers: (users: ResultType[]) => void
     setCurrentPage: (page: number) => void
-    // setTotalUsers: (count: number) => void
-    // setIsLoading: (isLoading: boolean) => void
-    // setFriends: (friend: ResultType) => void
-    // deleteFriend: (friendID: number) => void
-    // isFollowingButtonDisabled: (userID: number, value: boolean) => void
     getUsersThunk: (page: number, size: number) => Promise<void>;
     onFollowThunk: (el: ResultType) => Promise<void>;
     onUnfollowThunk: (el: ResultType) => Promise<void>;
 }
 
+// const mapState = (state: RootState): MapStateUsersPT => {
+//     return {
+//         users: state.usersPage.users,
+//         page: state.usersPage.page,
+//         size: state.usersPage.size,
+//         totalCount: state.usersPage.totalCount,
+//         isLoading: state.usersPage.isLoading,
+//         followingButtonDisabled: state.usersPage.followingButtonDisabled,
+//     }
+// }
+
 const mapState = (state: RootState): MapStateUsersPT => {
     return {
-        users: state.usersPage.users,
-        page: state.usersPage.page,
-        size: state.usersPage.size,
-        totalCount: state.usersPage.totalCount,
-        isLoading: state.usersPage.isLoading,
-        followingButtonDisabled: state.usersPage.followingButtonDisabled,
-
-
+        users: getUsers(state),
+        page: getPage(state),
+        size: getSize(state),
+        totalCount: getTotalCount(state),
+        isLoading: getIsLoading(state),
+        followingButtonDisabled: getFollowingButtonDisabled(state),
     }
 }
-
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.getUsersThunk(this.props.page, this.props.size)
@@ -92,8 +99,9 @@ class UsersContainer extends React.Component<UsersPropsType> {
 //     onFollowThunk,
 //     onUnfollowThunk
 // })(WrappedUsers)
+//WithAuthRedirect,
 
-export default compose<React.ComponentType>(WithAuthRedirect, connect(mapState, {
+export default compose<React.ComponentType>(connect(mapState, {
     setCurrentPage,
     getUsersThunk,
     onFollowThunk,

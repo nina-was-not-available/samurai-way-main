@@ -1,25 +1,28 @@
 import React from "react";
-import classes from './Message.module.css'
+// import classes from './../Dialogs.module.css'
 import {MessageData} from "../../../redux/dialogsReducer";
+import classes from'./Message.module.css'
 
 
 
 
 
 export const Message = (props: MessageData) => {
-    // let answer = React.createRef<HTMLTextAreaElement>()
-    // const onSendClick = () => {
-    //     let text = answer.current?.value
-    //     alert(text)
-    // }
 
     return (
         <>
-            <div>{props.text}</div>
-            <div className={classes.answer}>
-                {/*<textarea ref={answer}></textarea>*/}
-                {/*<button className={classes.sendButton} onClick={onSendClick}>send</button>*/}
-            </div>
+                <div className={classes.dialog}>
+                    <div className={classes.messageRight}>
+                        {props.text}
+                    </div>
+                </div>
+
+                <div className={classes.messageLeft}>
+                    <div className="message left">
+                        No
+                    </div>
+                </div>
+
         </>
     );
 }

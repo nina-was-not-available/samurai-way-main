@@ -2,7 +2,7 @@ import {
     addPost,
     PostType,
     ProfileResponceType,
-    updateNewPostText
+    updateStatusThunk
 } from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
@@ -12,12 +12,12 @@ import {RootState} from "../../../redux/reduxStore";
 
 type MapStateProfilePT = {
     postsData: PostType[],
-    newPostText: string,
-    profile: ProfileResponceType
+    profile: ProfileResponceType,
+    status: string
 }
 type MapDispatchProfilePT = {
-    addPost: () => void,
-    updateNewPostText: (newText: string) => void
+    addPost: (post: string) => void,
+    updateStatusThunk: (status: string) => Promise<void>
 }
 
 export type MyPostPT = MapStateProfilePT & MapDispatchProfilePT
@@ -25,13 +25,12 @@ export type MyPostPT = MapStateProfilePT & MapDispatchProfilePT
 const mapState = (state: RootState): MapStateProfilePT => {
     return {
         postsData: state.profilePage.postsData,
-        newPostText: state.profilePage.newPostText,
-        profile: state.profilePage.profileInfo
-
+        profile: state.profilePage.profileInfo,
+        status: state.profilePage.status
     }
 }
 
 
-const MyPostsContainer = connect(mapState, {addPost, updateNewPostText})(MyPosts)
+const MyPostsContainer = connect(mapState, {addPost,  updateStatusThunk})(MyPosts)
 
 export default MyPostsContainer;

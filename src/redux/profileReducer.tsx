@@ -1,6 +1,6 @@
 import profileInfo from "../components/profle/profileinfo/ProfileInfo";
-import {getProfile} from "../api/profileAPI";
 import {AppDispatch} from "./reduxStore";
+import {profileAPI} from "../api/profileAPI";
 
 export type ContactsType = {
     facebook: null | string
@@ -20,21 +20,16 @@ export type ProfileResponceType = {
     lookingForAJob: boolean
     lookingForAJobDescription: null | string
     photos: { small: null | string, large: null | string }
-    userId: number
+    userId: number | null
 }
 
-export const addPost = () => {
+export const addPost = (post: string) => {
     return {
-        type: 'ADD-POST'
+        type: 'ADD-POST',
+        payload: {post}
     } as const
 }
 
-export const updateNewPostText = (newText: string) => {
-    return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText
-    } as const
-}
 
 
 export type PostType = {
@@ -45,7 +40,7 @@ export type PostType = {
     likeCount?: string
 }
 export const initialProfileInfo = {
-    aboutMe: 'Hello!',
+    aboutMe: null,
     contacts: {
         facebook: null ,
         github: null ,
@@ -56,48 +51,46 @@ export const initialProfileInfo = {
         website: null ,
         youtube: null ,
     },
-    fullName:'Nina Matushkina',
+    fullName:null,
     lookingForAJob: true,
-    lookingForAJobDescription: 'just for fun',
+    lookingForAJobDescription: null,
     photos: { small: null , large: null },
-    userId: 1
-}
+    userId: null
+} as ProfileResponceType
 
 export let initialState = {
     postsData: [
         {id: 1, text: 'My first post!', button: 'like'},
         {id: 2, text: 'My second post!', button: 'dislike'},
     ] as PostType[],
-    newPostText: '',
-    profileInfo: initialProfileInfo as ProfileResponceType
+    profileInfo: initialProfileInfo as ProfileResponceType,
+    status: ''
 }
-
-export type InitialStateProfilePT = typeof initialState
+export type InitialStateProfilePT = {
+    postsData:PostType[]
+    profileInfo: ProfileResponceType
+    status: string
+}
+// export type InitialStateProfilePT = typeof initialState
 
 export const profileReducer = (state: InitialStateProfilePT = initialState, action: ActionType): InitialStateProfilePT => {
     switch (action.type) {
         case 'ADD-POST':
-            let newPost: PostType = {id: new Date().getTime(), text: state.newPostText, button: 'like'}
-            return {...state, postsData: [...state.postsData, newPost], newPostText: ''}
+            let newPost: PostType = {id: new Date().getTime(), text: action.payload.post, button: 'like'}
+            return {...state, postsData: [newPost, ...state.postsData]}
 
-
-        case 'UPDATE-NEW-POST-TEXT':
-            return {...state, newPostText: action.newText}
         case "SET-PROFILE-INFO":
             return {...state, profileInfo: action.payload.profile}
         case "UPDATE-PROFILE":
             return{...state, profileInfo: initialState.profileInfo}
+        case "SET-STATUS":
+            return {...state, status: action.payload.status}
     }
     return state
 }
 
-export type AddPostAT = {
-    type: 'ADD-POST'
-}
-export type UpdateNewPostMessageAT = {
-    type: 'UPDATE-NEW-POST-TEXT',
-    newText: string
-}
+export type AddPostAT = ReturnType<typeof addPost>
+
 type setProfileInfoAT = ReturnType<typeof setProfileInfo>
 export const setProfileInfo = (profile: ProfileResponceType) => {
     return {
@@ -112,19 +105,39 @@ export const updateProfile = () => {
     } as const
 }
 
-type ActionType = AddPostAT | UpdateNewPostMessageAT | setProfileInfoAT | UpdateProfileAT
+const setStatus = (status: string) => ({type: 'SET-STATUS', payload: {status}} as const)
+type SetStatusAT = ReturnType<typeof setStatus>
+
+
+
+type ActionType = AddPostAT  | setProfileInfoAT | UpdateProfileAT | SetStatusAT
 
 export const getProfileThunk = (userId: string) => async (dispatch: AppDispatch) => {
-    // getProfile(userId)
-    //     .then(response => this.props.setProfileInfo(response))
-    //     .catch(() => {
-    //         return this.props.setProfileInfo(initialProfileInfo)
-    //     })
     try {
-        let res = await  getProfile(userId)
+        let res = await profileAPI.getProfile(userId)
         dispatch(setProfileInfo(res))
     }
     catch (e) {
         dispatch(setProfileInfo(initialProfileInfo))
+    }
+}
+
+export const getStatusThunk = (userId: string) => async (dispatch: AppDispatch) => {
+    try {
+        let res = await profileAPI.getStatus(userId)
+        dispatch(setStatus(res))
+    }
+    catch (e) {
+        dispatch(setStatus(''))
+    }
+}
+
+export const updateStatusThunk = (status: string) => async (dispatch: AppDispatch) => {
+    try {
+        let res = await profileAPI.updateStatus(status)
+        dispatch(setStatus(status))
+    }
+    catch (e) {
+        dispatch(setStatus('No valid status'))
     }
 }

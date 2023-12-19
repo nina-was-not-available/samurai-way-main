@@ -31,7 +31,8 @@ export const Users = (props: UsersType) => {
             <div className={classes.paginationContainer}>
                 <div className={classes.pagination}>
                     {pages.map(el => {
-                        return <span className={props.page === el ? classes.selected : ''}
+                        return <span
+                            className={props.page === el ? classes.selected : ''}
                                      onClick={() => props.onPageChanged(el)} style={{cursor: 'pointer'}} key={el}
                         >{el}</span>
                     })}
