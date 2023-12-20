@@ -108,6 +108,7 @@ export const getUsersThunk = (page: number, size: number) => async (dispatch: Ap
     }
 }
 
+
 export const onFollowThunk = (el: ResultType) => async (dispatch: AppDispatch) => {
     dispatch(isFollowingButtonDisabled(el.id, true))
     try {

@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {memo, useCallback} from 'react';
 import classes from "./MyPosts.module.css";
 import Post from "./post/Post";
 import {MyPostPT} from "./MyPostsContainer";
@@ -9,8 +9,9 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthTS, requiredField} from "../../../utils/validators/validator";
 import Button from "../../common/Button";
 import {Textarea} from "../../common/FormControl";
+import {EditableSpanFunction} from "../../common/EditableSpanFunction";
 
-export const MyPosts = (props: MyPostPT) => {
+export const MyPosts = memo((props: MyPostPT) => {
     if (!props.profile.photos) {
         return <Preloader/>
     }
@@ -24,14 +25,14 @@ export const MyPosts = (props: MyPostPT) => {
     }
     return (
         <>
-            <div className={classes.status}><EditableSpan title={props.status} someThunk={props.updateStatusThunk}/></div>
+            <div className={classes.status}><EditableSpanFunction title={props.status} someThunk={props.updateStatusThunk}/></div>
             <div className={classes.menu}>
                 <MyPostReduxForm onSubmit={onSubmit}/>
                 {postElement}
             </div>
         </>
     );
-};
+})
 
 type FormDataType = {
     post: string

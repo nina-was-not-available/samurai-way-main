@@ -20,7 +20,7 @@ type ActionAuthType = SetUserDataAT
 
 export const authReducer = (state: InitialAuthStateType = initialAuthState, action: ActionAuthType) => {
     switch (action.type) {
-        case "SET-USER-DATA":
+        case "AUTH/SET-USER-DATA":
             return {...state, ...action.payload.data, isAuth: action.payload.isAuth}
         default:
             return state
@@ -30,12 +30,7 @@ export const authReducer = (state: InitialAuthStateType = initialAuthState, acti
 type SetUserDataAT = ReturnType<typeof setUserData>
 
 //data: InitialAuthStateType
-export const setUserData = (data: GetAuthType, isAuth: boolean) => {
-    return {
-        type: 'SET-USER-DATA',
-        payload: {data, isAuth}
-    } as const
-}
+export const setUserData = (data: GetAuthType, isAuth: boolean) => ({type: 'AUTH/SET-USER-DATA', payload: {data, isAuth}} as const)
 
 export const getAuthInfoThunk = () => async (dispatch: AppDispatch) => {
     try {

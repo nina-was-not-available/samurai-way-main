@@ -85,32 +85,26 @@ export const profileReducer = (state: InitialStateProfilePT = initialState, acti
             return{...state, profileInfo: initialState.profileInfo}
         case "SET-STATUS":
             return {...state, status: action.payload.status}
+        case "DELETE-POST":
+            return {...state, postsData: state.postsData.filter(el => el.id !== action.id)}
     }
     return state
 }
 
 export type AddPostAT = ReturnType<typeof addPost>
 
-type setProfileInfoAT = ReturnType<typeof setProfileInfo>
-export const setProfileInfo = (profile: ProfileResponceType) => {
-    return {
-        type: 'SET-PROFILE-INFO',
-        payload: {profile}
-    } as const
-}
-type UpdateProfileAT = ReturnType<typeof updateProfile>
-export const updateProfile = () => {
-    return {
-        type: 'UPDATE-PROFILE',
-    } as const
-}
+export const setProfileInfo = (profile: ProfileResponceType) => ({type: 'SET-PROFILE-INFO', payload: {profile}} as const)
+export const updateProfile = () => ({type: 'UPDATE-PROFILE'} as const)
 
 const setStatus = (status: string) => ({type: 'SET-STATUS', payload: {status}} as const)
-type SetStatusAT = ReturnType<typeof setStatus>
 
+export const deletePost = (id: number) => ({type: 'DELETE-POST', id} as const)
 
-
-type ActionType = AddPostAT  | setProfileInfoAT | UpdateProfileAT | SetStatusAT
+type ActionType = AddPostAT
+    | ReturnType<typeof setProfileInfo>
+    | ReturnType<typeof updateProfile>
+    |  ReturnType<typeof setStatus>
+    | ReturnType<typeof deletePost>
 
 export const getProfileThunk = (userId: string) => async (dispatch: AppDispatch) => {
     try {
